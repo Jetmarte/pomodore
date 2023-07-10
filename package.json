@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "node src/index.mjs",
-    "dev": "nodemon src/index.mjs"
+    "dev": "nodemon src/index.mjs",
+    "build": "node src/index.mjs"
   },
   "author": "",
   "license": "ISC",
