@@ -1,0 +1,9 @@
+{
+  "persistence": {
+    "database": {
+      "name": "pomodoreDB",
+      "user": "",
+      "password": ""
+    }
+  }
+}
