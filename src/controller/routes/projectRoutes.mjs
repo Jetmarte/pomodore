@@ -7,7 +7,7 @@ const router = Router();
 
 //================define endpoints=========
 router.get('/', (req, res) => {
-  res.send("hola mundo saludos")
+  res.send("hola mundo saludos contraya")
 });
 
 router.get('/projects', (req, res) => {
