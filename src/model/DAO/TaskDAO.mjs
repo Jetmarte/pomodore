@@ -2,13 +2,13 @@ import config from "../../../config.json" assert { type: "json" };
 import { DB_DAO } from "./DB_DAO.mjs";
 import { Task } from "../../core/Task.mjs";
 
-class TaskDAO {
+export class TaskDAO {
   constructor() {
     let db_name = config.persistence.database.name;
     this.db = new DB_DAO("../../../" + db_name);
   }
 
-  createTaskTableDAO() {
+  createTable() {
     this.db.createTable(
       `CREATE TABLE IF NOT EXISTS taskDB (
              id_task INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,7 +20,7 @@ class TaskDAO {
     );
   }
 
-  createTaskDAO(myTask) {
+  create(myTask) {
     let query = `INSERT INTO taskDB (name_task, note_task, pomodores, project_task) VALUES (?, ?, ?, ?)`;
     this.db.insert(
       query,
@@ -31,19 +31,19 @@ class TaskDAO {
     );
   }
 
-  deleteTaskDAO(id_task) {
+  delete(id_task) {
     let query = `DELETE FROM taskDB WHERE id_task = ?`;
     this.db.delete(query, id_task);
   }
 
-  readAllTaskDAO(callback) {
+  readAll(callback) {
     let query = "SELECT * FROM taskDB";
     this.db.getAll(query, (allData) => {
       callback(allData);
     });
   }
 
-  readTaskDAO(id, callback) {
+  read(id, callback) {
     let query = `SELECT * FROM taskDB where id_task = ${id}`;
     this.db.getByID(query, (rows) => {
       rows.forEach((row) => {
@@ -59,7 +59,15 @@ class TaskDAO {
     });
   }
 
-  updateTaskDAO(task) {
+  readByProject(id, callback) {
+    let query = `SELECT * FROM taskDB where project_task = ${id}`;
+    this.db.getByID(query, (rows) => {
+      let allData = rows;
+      callback(allData);
+    });
+  }
+
+  update(task) {
     let query = `UPDATE taskDB SET name_task = ?, note_task = ?, pomodores = ?, project_task = ? WHERE id_task = ?`;
     this.db.update(
       query,
@@ -71,23 +79,3 @@ class TaskDAO {
     );
   }
 }
-
-let d = new TaskDAO();
-let t = new Task(2, "chaturbate", "lo mas añon de este mundo", 3487, 1);
-//--------------->
-//d.createTaskDAO(t);
-//--------------->
-//d.deleteTaskDAO(3)
-//--------------->
-// d.readAllTaskDAO( (allData) => {
-//     allData.forEach( (registreTask) => {
-//         console.log(registreTask)
-//     } )
-// });
-//--------------->
-// d.readTaskDAO(2, (myTask) => {
-//     console.log(myTask);
-// })
-//--------------->
-//d.updateTaskDAO(t)
-

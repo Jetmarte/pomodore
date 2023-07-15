@@ -2,15 +2,15 @@ import { ProjectDAO } from '../../model/DAO/ProjectDAO.mjs';
 import { Project } from '../../core/Project.mjs';
 import { Router } from 'express'
 
-const router = Router();
+const projectRouter = Router();
 
 
 //================define endpoints=========
-router.get('/', (req, res) => {
+projectRouter.get('/', (req, res) => {
   res.send("hola mundo saludos contraya")
 });
 
-router.get('/projects', (req, res) => {
+projectRouter.get('/projects', (req, res) => {
   let project = new ProjectDAO();
   project.readAll((allData) => {
     res.json(allData);
@@ -18,7 +18,7 @@ router.get('/projects', (req, res) => {
 
 });
 
-router.get('/project/:id', (req, res) => {
+projectRouter.get('/project/:id', (req, res) => {
   let project = new ProjectDAO();
   let id_project = req.params.id;
   project.read(id_project, (row) => {
@@ -26,7 +26,7 @@ router.get('/project/:id', (req, res) => {
   });
 });
 
-router.post('/project', (req, res) => {
+projectRouter.post('/project', (req, res) => {
   let datos = req.body;
   let project = new ProjectDAO();
   let myProject = new Project(
@@ -37,7 +37,7 @@ router.post('/project', (req, res) => {
   res.status(200).json({ message: '¡Solicitud POST exitosa!', datos });
 });
 
-router.put('/project/:id', (req, res) => {
+projectRouter.put('/project/:id', (req, res) => {
   let datos = req.body;
   let project = new ProjectDAO();
   let myProject = new Project(
@@ -49,7 +49,7 @@ router.put('/project/:id', (req, res) => {
 });
 
 
-router.delete('/project/:id', (req, res) => {
+projectRouter.delete('/project/:id', (req, res) => {
   let id = req.params.id;
   let projectDAO = new ProjectDAO();
   projectDAO.delete(id);
@@ -57,5 +57,5 @@ router.delete('/project/:id', (req, res) => {
 });
 
 
-export {router};
+export {projectRouter};
 

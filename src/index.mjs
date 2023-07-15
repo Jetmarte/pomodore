@@ -1,6 +1,7 @@
 import express, { Router, response } from 'express';
 import morgan from 'morgan';
-import {router} from './controller/routes/projectRoutes.mjs';
+import {projectRouter} from './controller/routes/projectRoutes.mjs';
+import {taskRouter} from './controller/routes/taskRoutes.mjs';
 import cors from "cors";
 
 const app = express();
@@ -18,7 +19,8 @@ app.use(express.json())
 
 
 //routes
-app.use(router);
+app.use(projectRouter);
+app.use(taskRouter);
 
 
 
